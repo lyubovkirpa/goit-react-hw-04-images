@@ -1,7 +1,8 @@
-import { Component } from 'react';
+import React,{ Component } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { fetchImages } from '../API/fetch';
 import SearchBar from './Searchbar';
+import ImageGallery from "./ImageGallery";
 
 
 export class App extends Component {
@@ -41,12 +42,17 @@ export class App extends Component {
     }
   }
 
+  handleFormSubmit = searchName => {
+    this.setState({ searchName, currentPage: 1, images: [] });
+  };
+
    
   render() {   
-
+    const { images } = this.state;
     return (
       <>
-        <SearchBar /> 
+        <SearchBar  onSubmit={this.handleFormSubmit}  />
+        {images && <ImageGallery images={images} />}        
       </>
     );
   }

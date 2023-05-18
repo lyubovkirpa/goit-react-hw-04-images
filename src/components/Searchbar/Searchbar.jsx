@@ -1,38 +1,38 @@
 import { Component } from 'react';
-import { ReactComponent as AiOutlineSearch } from '../../images/search.svg';
+import { ReactComponent as SearchIcon } from '../../images/search.svg';
 import { SearchbarWrap, Form, Input, SearchBtn } from './Searchbar.styled';
 
 
 
 export default class Searchbar extends Component {
   state = {
-    searchQuery: '',
+    searchName: '',
   };
 
-  onInputChange = e => {
-    const searchQuery = e.currentTarget.value;
-    this.setState({ searchQuery });
+  onInputChange = event => {
+    const searchName = event.currentTarget.value;
+    this.setState({ searchName });
   };
 
-  onSearchBtnClick = e => {
-    e.preventDefault();
+  onSearchBtnClick = event => {
+    event.preventDefault();
 
-  const searchQuery = this.state.searchQuery.trim().toLowerCase();
+  const searchName = this.state.searchName.trim().toLowerCase();
     
-    if (searchQuery) {
-      this.props.onSubmit(searchQuery);
+    if (searchName) {
+      this.props.onSubmit(searchName);
     } else {
       alert(`Enter something`);
     }
   };
 
   render() {
-    const { searchQuery } = this.state;
+    const { searchName } = this.state;
     return (
       <SearchbarWrap>
         <Form>
           <SearchBtn type="submit" onClick={this.onSearchBtnClick}>
-            <AiOutlineSearch size="20" />
+            <SearchIcon size="20" />
           </SearchBtn>
 
           <Input
@@ -41,7 +41,7 @@ export default class Searchbar extends Component {
             autoFocus
             placeholder="Search images and photos"
             maxLength="20"
-            value={searchQuery}
+            value={searchName}
             onChange={this.onInputChange}
           />
         </Form>

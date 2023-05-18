@@ -4,6 +4,7 @@ import { fetchImages } from '../API/fetch';
 import SearchBar from './Searchbar';
 import ImageGallery from "./ImageGallery";
 import Button from 'components/Button';
+import { ThreeDots } from 'react-loader-spinner';
 
 
 export class App extends Component {
@@ -54,11 +55,23 @@ export class App extends Component {
   };
    
   render() {   
-    const { images } = this.state;
+    const { images, loading } = this.state;
     return (
       <>
         <SearchBar onSubmit={this.handleFormSubmit}  />
         {images && <ImageGallery images={images} />}
+        {loading && (
+          <ThreeDots
+            height="60"
+            width="60"
+            radius="8"
+            color="#3f51b5"
+            ariaLabel="three-dots-loading"
+            wrapperStyle={{ justifyContent: 'center' }}
+            wrapperClassName=""
+            visible={true}
+          />
+        )}
         {images.length > 0 && <Button onClick={this.loadMoreSubmit} />}        
       </>
     );

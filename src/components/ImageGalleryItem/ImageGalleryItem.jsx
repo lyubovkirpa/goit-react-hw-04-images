@@ -12,7 +12,7 @@ export default class ImageGalleryItem extends Component {
   };
   
   state = {
-    showModal: false,
+    showModal: false,    
   };
 
   toggleModal = () => {
@@ -22,7 +22,7 @@ export default class ImageGalleryItem extends Component {
   };
 
   render() {
-    const { webformatURL, largeImageURL, tags } = this.props;
+    const { webformatURL, largeImageURL, tags, alt } = this.props;
     const { showModal } = this.state;
     return (
       <Card>
@@ -30,10 +30,11 @@ export default class ImageGalleryItem extends Component {
         {showModal && (
           <Modal
             url={largeImageURL}
-            tags={tags}
-            modalIsOpen={showModal}
-            closeModal={this.toggleModal}
-          />
+            tags={tags}           
+            onClose={this.toggleModal}
+          >
+            <img src={largeImageURL} alt={alt} />
+          </Modal>
         )}
       </Card>
     );

@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { ReactComponent as SearchIcon } from '../../images/search.svg';
 import { SearchbarWrap, Form, Input, SearchBtn } from './Searchbar.styled';
-
+import toast from 'react-hot-toast';
 
 
 export default class Searchbar extends Component {
@@ -22,7 +22,7 @@ export default class Searchbar extends Component {
     if (searchName) {
       this.props.onSubmit(searchName);
     } else {
-      alert(`Enter something`);
+      toast.error('Fill in the search field');
     }
   };
 

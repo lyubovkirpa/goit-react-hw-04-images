@@ -1,5 +1,5 @@
 import React,{ Component } from 'react';
-import toast from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import { fetchImages } from '../API/fetch';
 import SearchBar from './Searchbar';
 import ImageGallery from "./ImageGallery";
@@ -72,7 +72,8 @@ export class App extends Component {
             visible={true}
           />
         )}
-        {images.length > 0 && <Button onClick={this.loadMoreSubmit} />}        
+        {images.length > 0 && <Button onClick={this.loadMoreSubmit} />}
+        <Toaster position="top-right" reverseOrder={false} />        
       </>
     );
   }

@@ -5,26 +5,22 @@ import { Overlay, ModalContent } from './Modal.styled';
 
 
 export default class Modal extends Component {
-  componentDidMount() {
-    // console.log("Modal componentDidMount");
+  componentDidMount() {    
     window.addEventListener('keydown', this.handleKeyDown);
   }
 
-  componentWillUnmount() {
-    // console.log("Modal componentWillUnmount");
+  componentWillUnmount() {   
     window.removeEventListener('keydown', this.handleKeyDown);
   }
 
-  handleKeyDown = e => {
-    if (e.code === 'Escape') {
-      // console.log('ESC');
+  handleKeyDown = event => {
+    if (event.code === 'Escape') {      
       this.props.onClose();
     }
   }  
 
-  handleBackdropClick = e => {
-    // console.log('BackdropClick');
-    if (e.currentTarget === e.target) {
+  handleBackdropClick = event => {    
+    if (event.currentTarget === event.target) {
       this.props.onClose();
     }
   }

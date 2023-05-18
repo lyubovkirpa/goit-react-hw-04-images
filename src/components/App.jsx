@@ -3,6 +3,7 @@ import toast from 'react-hot-toast';
 import { fetchImages } from '../API/fetch';
 import SearchBar from './Searchbar';
 import ImageGallery from "./ImageGallery";
+import Button from 'components/Button';
 
 
 export class App extends Component {
@@ -46,13 +47,19 @@ export class App extends Component {
     this.setState({ searchName, currentPage: 1, images: [] });
   };
 
+  loadMoreSubmit = () => {
+    this.setState(prevState => ({
+      page: prevState.page + 1,
+    }));
+  };
    
   render() {   
     const { images } = this.state;
     return (
       <>
-        <SearchBar  onSubmit={this.handleFormSubmit}  />
-        {images && <ImageGallery images={images} />}        
+        <SearchBar onSubmit={this.handleFormSubmit}  />
+        {images && <ImageGallery images={images} />}
+        {images.length > 0 && <Button onClick={this.loadMoreSubmit} />}        
       </>
     );
   }

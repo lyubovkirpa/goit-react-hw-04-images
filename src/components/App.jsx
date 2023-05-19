@@ -1,11 +1,10 @@
-import React,{ Component } from 'react';
+import React, { Component } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { fetchImages } from '../API/fetch';
 import SearchBar from './Searchbar';
-import ImageGallery from "./ImageGallery";
+import ImageGallery from './ImageGallery';
 import Button from 'components/Button';
 import { ThreeDots } from 'react-loader-spinner';
-
 
 export class App extends Component {
   state = {
@@ -53,12 +52,12 @@ export class App extends Component {
       page: prevState.page + 1,
     }));
   };
-   
-  render() {   
+
+  render() {
     const { images, loading } = this.state;
     return (
       <>
-        <SearchBar onSubmit={this.handleFormSubmit}  />
+        <SearchBar onSubmit={this.handleFormSubmit} />
         {images && <ImageGallery images={images} />}
         {loading && (
           <ThreeDots
@@ -73,9 +72,8 @@ export class App extends Component {
           />
         )}
         {images.length > 0 && <Button onClick={this.loadMoreSubmit} />}
-        <Toaster position="top-right" reverseOrder={false} />        
+        <Toaster position="top-right" reverseOrder={false} />
       </>
     );
   }
 }
-

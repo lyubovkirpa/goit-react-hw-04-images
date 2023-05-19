@@ -3,7 +3,6 @@ import { ReactComponent as SearchIcon } from '../../images/search.svg';
 import { SearchbarWrap, Form, Input, SearchBtn } from './Searchbar.styled';
 import toast from 'react-hot-toast';
 
-
 export default class Searchbar extends Component {
   state = {
     searchName: '',
@@ -17,12 +16,11 @@ export default class Searchbar extends Component {
   onSearchBtnClick = event => {
     event.preventDefault();
 
-  const searchName = this.state.searchName.trim().toLowerCase();
-    
+    const searchName = this.state.searchName.trim().toLowerCase();
+
     if (searchName) {
       this.props.onSubmit(searchName);
       this.setState({ searchName: '' });
-      
     } else {
       toast.error('Fill in the search field');
     }

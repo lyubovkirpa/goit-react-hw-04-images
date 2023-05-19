@@ -1,8 +1,7 @@
-import React,{ Component } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Card, Image } from './ImageGalleryItem.styled';
 import Modal from '../Modal';
-
 
 export default class ImageGalleryItem extends Component {
   static propTypes = {
@@ -10,9 +9,9 @@ export default class ImageGalleryItem extends Component {
     largeImageURL: PropTypes.string.isRequired,
     tags: PropTypes.string.isRequired,
   };
-  
+
   state = {
-    showModal: false,    
+    showModal: false,
   };
 
   toggleModal = () => {
@@ -28,11 +27,7 @@ export default class ImageGalleryItem extends Component {
       <Card>
         <Image src={webformatURL} alt={tags} onClick={this.toggleModal} />
         {showModal && (
-          <Modal
-            url={largeImageURL}
-            tags={tags}           
-            onClose={this.toggleModal}
-          >
+          <Modal url={largeImageURL} tags={tags} onClose={this.toggleModal}>
             <img src={largeImageURL} alt={tags} />
           </Modal>
         )}
@@ -40,4 +35,3 @@ export default class ImageGalleryItem extends Component {
     );
   }
 }
-

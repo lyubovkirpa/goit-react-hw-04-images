@@ -1,5 +1,3 @@
-// import PropTypes from 'prop-types';
-
 import axios from 'axios';
 
 axios.defaults.baseURL = 'https://pixabay.com/api/';

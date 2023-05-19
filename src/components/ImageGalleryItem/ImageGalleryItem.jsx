@@ -22,7 +22,7 @@ export default class ImageGalleryItem extends Component {
   };
 
   render() {
-    const { webformatURL, largeImageURL, tags, alt } = this.props;
+    const { webformatURL, largeImageURL, tags } = this.props;
     const { showModal } = this.state;
     return (
       <Card>
@@ -33,7 +33,7 @@ export default class ImageGalleryItem extends Component {
             tags={tags}           
             onClose={this.toggleModal}
           >
-            <img src={largeImageURL} alt={alt} />
+            <img src={largeImageURL} alt={tags} />
           </Modal>
         )}
       </Card>

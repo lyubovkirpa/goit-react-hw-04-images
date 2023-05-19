@@ -21,6 +21,8 @@ export default class Searchbar extends Component {
     
     if (searchName) {
       this.props.onSubmit(searchName);
+      this.setState({ searchName: '' });
+      
     } else {
       toast.error('Fill in the search field');
     }

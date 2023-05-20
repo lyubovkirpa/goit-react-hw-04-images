@@ -12,7 +12,8 @@ export class App extends Component {
     images: [],
     page: 1,
     loading: false,
-    error: null,
+    error: null,  
+    isLoadMoreShown: false,
   };
 
   async componentDidUpdate(prevProps, prevState) {
@@ -20,7 +21,7 @@ export class App extends Component {
 
     if (prevState.searchName !== searchName || prevState.page !== page) {
       try {
-        this.setState({ loading: true });
+        this.setState({ loading: true, isLoadMoreShown: false });
 
         const searchImages = await fetchImages(searchName, page);
 
@@ -35,6 +36,10 @@ export class App extends Component {
             images: [...images, ...searchImages],
           };
         });
+
+        if (searchImages.length >= 12) {
+          this.setState({ isLoadMoreShown: true });
+        }
       } catch (error) {
         toast.error('Something went wrong');
       } finally {
@@ -44,7 +49,11 @@ export class App extends Component {
   }
 
   handleFormSubmit = searchName => {
-    this.setState({ searchName, currentPage: 1, images: [] });
+    this.setState({
+      searchName,
+      images: [],
+      page: 1,
+    });
   };
 
   loadMoreSubmit = () => {
@@ -54,11 +63,11 @@ export class App extends Component {
   };
 
   render() {
-    const { images, loading } = this.state;
+    const { images, loading, isLoadMoreShown } = this.state;
     return (
       <>
         <SearchBar onSubmit={this.handleFormSubmit} />
-        {images && <ImageGallery images={images} />}
+        {!!images.length && <ImageGallery images={images} />}
         {loading && (
           <ThreeDots
             height="60"
@@ -71,7 +80,7 @@ export class App extends Component {
             visible={true}
           />
         )}
-        {images.length > 0 && <Button onClick={this.loadMoreSubmit} />}
+        {isLoadMoreShown && <Button onClick={this.loadMoreSubmit} />}
         <Toaster position="top-right" reverseOrder={false} />
       </>
     );

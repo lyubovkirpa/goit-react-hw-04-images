@@ -1,56 +1,50 @@
 import PropTypes from 'prop-types';
-import { Component } from 'react';
 import { ReactComponent as SearchIcon } from '../../images/search.svg';
 import { SearchbarWrap, Form, Input, SearchBtn } from './Searchbar.styled';
 import toast from 'react-hot-toast';
+import { useState } from 'react';
 
-export default class Searchbar extends Component {
-  state = {
-    searchName: '',
+const Searchbar = ({ onSubmit }) => {
+  const [searchName, setSearchName] = useState('');
+
+  const onInputChange = event => {
+    setSearchName(event.currentTarget.value);
   };
 
-  onInputChange = event => {
-    const searchName = event.currentTarget.value;
-    this.setState({ searchName });
-  };
-
-  onSearchBtnClick = event => {
+  const onSearchBtnClick = event => {
     event.preventDefault();
 
-    const searchName = this.state.searchName.trim().toLowerCase();
-
-    if (searchName) {
-      this.props.onSubmit(searchName);
-      this.setState({ searchName: '' });
+    if (searchName.trim().toLowerCase()) {
+      onSubmit(searchName);
+      setSearchName('');
     } else {
       toast.error('Fill in the search field');
     }
   };
 
-  render() {
-    const { searchName } = this.state;
-    return (
-      <SearchbarWrap>
-        <Form>
-          <SearchBtn type="submit" onClick={this.onSearchBtnClick}>
-            <SearchIcon size="20" />
-          </SearchBtn>
+  return (
+    <SearchbarWrap>
+      <Form>
+        <SearchBtn type="submit" onClick={onSearchBtnClick}>
+          <SearchIcon size="20" />
+        </SearchBtn>
 
-          <Input
-            type="text"
-            autoComplete="off"
-            autoFocus
-            placeholder="Search images and photos"
-            maxLength="20"
-            value={searchName}
-            onChange={this.onInputChange}
-          />
-        </Form>
-      </SearchbarWrap>
-    );
-  }
-}
+        <Input
+          type="text"
+          autoComplete="off"
+          autoFocus
+          placeholder="Search images and photos"
+          maxLength="20"
+          value={searchName}
+          onChange={onInputChange}
+        />
+      </Form>
+    </SearchbarWrap>
+  );
+};
 
 Searchbar.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
+
+export default Searchbar;

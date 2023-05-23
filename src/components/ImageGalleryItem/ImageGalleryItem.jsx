@@ -1,37 +1,31 @@
-import React, { Component } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Card, Image } from './ImageGalleryItem.styled';
 import Modal from '../Modal';
 
-export default class ImageGalleryItem extends Component {
-  static propTypes = {
-    webformatURL: PropTypes.string.isRequired,
-    largeImageURL: PropTypes.string.isRequired,
-    tags: PropTypes.string.isRequired,
+const ImageGalleryItem = ({ webformatURL, tags, largeImageURL }) => {
+  const [showModal, setShowModal] = useState(false);
+
+  const toggleModal = () => {
+    setShowModal(!showModal);
   };
 
-  state = {
-    showModal: false,
-  };
+  return (
+    <Card>
+      <Image src={webformatURL} alt={tags} onClick={toggleModal} />
+      {showModal && (
+        <Modal url={largeImageURL} tags={tags} onClose={toggleModal}>
+          <img src={largeImageURL} alt={tags} />
+        </Modal>
+      )}
+    </Card>
+  );
+};
 
-  toggleModal = () => {
-    this.setState(({ showModal }) => ({
-      showModal: !showModal,
-    }));
-  };
+ImageGalleryItem.propTypes = {
+  webformatURL: PropTypes.string.isRequired,
+  largeImageURL: PropTypes.string.isRequired,
+  tags: PropTypes.string.isRequired,
+};
 
-  render() {
-    const { webformatURL, largeImageURL, tags } = this.props;
-    const { showModal } = this.state;
-    return (
-      <Card>
-        <Image src={webformatURL} alt={tags} onClick={this.toggleModal} />
-        {showModal && (
-          <Modal url={largeImageURL} tags={tags} onClose={this.toggleModal}>
-            <img src={largeImageURL} alt={tags} />
-          </Modal>
-        )}
-      </Card>
-    );
-  }
-}
+export default ImageGalleryItem;
